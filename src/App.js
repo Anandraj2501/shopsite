@@ -3,15 +3,21 @@ import Main from './Components/Main/Main';
 import SingleProduct from './Components/SingleProduct/SingleProduct';
 import AllProduct from './Components/AllProduct/AllProduct';
 import Cart from './Components/Cart/Cart';
+import Login from './Components/Auth/Login';
+import Signup from './Components/Auth/Signup';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 function App() {
   return (
     <div className="App">
       <Routes>
         <Route path="/" element={<Main />}/>
-        <Route path="/singleproduct" element={<SingleProduct />}/>
+        <Route path="/singleproduct/:id" element={<SingleProduct />}/>
         <Route path="/allproducts" element={<AllProduct />}/>
         <Route path="/cart" element={<Cart />}/>
+        <Route path="/login" element={<Login />}/>
+        <Route path="/signup" element={<Signup />}/>
       </Routes>
     </div>
   );

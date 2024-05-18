@@ -31,7 +31,7 @@ const Navbar = ()=>{
                 <span className="search mx-[1vw] cursor-pointer"><CiSearch size={20}/></span>
                 <Link to="/cart" className="cart mx-[1vw] cursor-pointer"><CiShoppingCart size={20}/></Link>
                 <span className="button-container mx-[1vw]">
-                    <button className=" bg-slate-500 px-[10px] py-[5px] rounded-md">Login</button>
+                    <Link to="/login"><button className=" bg-slate-500 px-[10px] py-[5px] rounded-md hover:text-white">Login</button></Link>
                 </span>
             </div>
             <div className="hamburger block sm:hidden" onClick={handleHamClick}><RxHamburgerMenu size={20} /></div>

@@ -1,13 +1,16 @@
 import Navbar from "../Navbar/Navbar";
-import p1 from "../../images/p1.jpg";
 import { useState } from "react";
 import Footer from "../Footer/Footer"
 import SimilarProducts from "./Similarproducts";
+import { useParams } from "react-router-dom";
+import useSingleProduct from "../../utils/useSingleProduct";
 
 const SingleProduct = () => {
     const [quantity, setQuantity] = useState(1);
+    const id = useParams();
+    const {products,Loading,error} = useSingleProduct(id);
+
     const handleQuantityChange = (e) => {
-       
         setQuantity(e.target.value);
     }
     return (
@@ -16,13 +19,13 @@ const SingleProduct = () => {
             <div className="singleproduct-container px-[18px] mt-[10px] md:flex">
                 <div className="left md:w-[50%]">
                     <div className="img-container relative min-w-[200px] md:h-full">
-                        <img src={p1} alt="cloth" className="md:w-[100%]"/>
+                        <img src={products.imageUrl} alt="cloth" className="md:w-[100%]"/>
                     </div>
                 </div>
                 <div className="right flex flex-col mt-[10px] md:w-[50%] md:ml-[20px]">
-                    <span className="text-lg text-slate-500 font-bold sm:text-xl md:text-3xl lg:text-4xl">Nike Dress</span>
-                    <span className="lg:my-[10px]">Nike Description</span>
-                    <span className="text-slate-400 md:text-2xl ">₹2999</span>
+                    <span className="text-lg text-slate-500 font-bold sm:text-xl md:text-3xl lg:text-4xl">{products.name}</span>
+                    <span className="lg:my-[10px]">{products.description}</span>
+                    <span className="text-slate-400 md:text-2xl ">₹{products.price}</span>
                     <div className="md:mt-[10px]">
                         <span className="">Quantity</span>
                         <input type="number" value={quantity} onChange={handleQuantityChange} className="ml-[10px] border border-slate-400 mb-[10px] p-[5px]" />

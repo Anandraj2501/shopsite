@@ -1,5 +1,8 @@
+
 import jacket from "../../images/jacket.svg";
 const Categories = () => {
+
+
     return (
         <div className="categories-container px-[18px] mt-[50px]">
             <h1 className=" text-lg text-slate-500 font-bold sm:text-xl lg:text-2xl">Categories</h1>
