@@ -1,18 +1,34 @@
 import Navbar from "../Navbar/Navbar";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Footer from "../Footer/Footer"
 import SimilarProducts from "./Similarproducts";
 import { useParams } from "react-router-dom";
 import useSingleProduct from "../../utils/useSingleProduct";
+import useAddToCart from "../../utils/useAddToCart";
+import { ToastContainer, toast } from 'react-toastify';
 
 const SingleProduct = () => {
     const [quantity, setQuantity] = useState(1);
-    const id = useParams();
+    const {id} = useParams();
     const {products,Loading,error} = useSingleProduct(id);
+    const {addToCart,isLoading,success} = useAddToCart();
 
     const handleQuantityChange = (e) => {
+        if(e.target.value<1){
+            return;
+        }
         setQuantity(e.target.value);
     }
+    const handleAddToCart =()=>{
+        const data = {
+            productId:id,
+            quantity:quantity
+        }
+        addToCart(data);
+    }
+    useEffect(()=>{
+        toast(success);
+    },[success])
     return (
         <>
             <Navbar />
@@ -30,7 +46,7 @@ const SingleProduct = () => {
                         <span className="">Quantity</span>
                         <input type="number" value={quantity} onChange={handleQuantityChange} className="ml-[10px] border border-slate-400 mb-[10px] p-[5px]" />
                     </div>
-                    <button className=" bg-slate-500 px-[10px] py-[5px] rounded-md hover:text-white mb-[10px] w-[100px]">Add to Cart</button>
+                    <button className=" bg-slate-500 px-[10px] py-[5px] rounded-md hover:text-white mb-[10px] w-[100px]" onClick={handleAddToCart}>{isLoading ? "Adding...":"Add to Cart"}</button>
                     <hr />
                     <span className="text-lg text-slate-500 font-bold sm:text-xl lg:text-2xl mt-[10px]">Product Details</span>
                     <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sed, aut ad odio libero iure nesciunt eaque ratione ex quisquam adipisci quaerat iste repudiandae eum nisi similique modi culpa ab! Sequi voluptates et hic deleniti voluptatum totam! Earum atque dolores voluptas dolor esse hic similique cupiditate, labore molestiae vero distinctio modi.</span>
@@ -40,6 +56,7 @@ const SingleProduct = () => {
             <SimilarProducts />
 
             <Footer />
+            <ToastContainer/>
         </>
     )
 }

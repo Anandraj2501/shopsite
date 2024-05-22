@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import useLogin from "../../utils/useLogin";
+import { ToastContainer, toast } from 'react-toastify';
 
 const Login = ()=>{
-    const {login,isLoading} = useLogin();
+    const {login,isLoading,error} = useLogin();
 
     const [formData,setFormData] = useState({
         email:"",
@@ -24,6 +25,9 @@ const Login = ()=>{
             login(formData);
         }
     }
+    useEffect(()=>{
+        toast(error);
+    },[error])
     
     return(
         <div className="flex justify-center p-14 ">
@@ -41,6 +45,7 @@ const Login = ()=>{
                     { isLoading ? "Loading...":"Login"}
                 </button>
             </div>
+            <ToastContainer/>
         </div>
     )
 }

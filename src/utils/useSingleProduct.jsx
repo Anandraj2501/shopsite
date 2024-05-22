@@ -2,10 +2,11 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { BACKEND_URL } from "./BACKEND_URL";
 
-const useSingleProduct = ({id})=>{
+const useSingleProduct = (id)=>{
     const [products,setProducts] = useState([]);
     const [Loading,setLoading] = useState(false);
     const [error,setError] = useState();
+    
 
     const getProducts = async () => {
         try{

@@ -17,7 +17,7 @@ const Featured = () => {
                 {Loading ? (
                     <div>Loading...</div>
                 ) : (
-                    products?.map((item, index) => (
+                    products?.slice(0,8).map((item, index) => (
                         <div className="cards w-[20%] min-w-[200px] relative rounded-lg border slate-500 px-[12px] py-[10px] shadow-lg cursor-pointer hover:shadow-2xl" key={item._id}>
                             <Link to={`/singleproduct/${item._id}`}>
                                 <img src={item.imageUrl} alt="" className="rounded-lg" />

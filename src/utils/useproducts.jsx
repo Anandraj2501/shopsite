@@ -4,6 +4,7 @@ import { BACKEND_URL } from "./BACKEND_URL";
 
 const useProducts = ()=>{
     const [products, setProducts] = useState([]);
+    const [filteredProducts, setFilteredProducts] = useState([]);
     const [Loading,setLoading] = useState(false);
     const [error,setError] = useState();
 
@@ -11,6 +12,7 @@ const useProducts = ()=>{
         try{
         const data = await axios.get(BACKEND_URL + "/allproducts");
         setProducts(data.data.products);
+        setFilteredProducts(data.data.products);
         setLoading(false);
         }catch(error){
             setError(error);
@@ -22,7 +24,9 @@ const useProducts = ()=>{
         getProducts();
     }, [])
 
-    return {products,Loading,error};
+
+
+    return {products,Loading,error,filteredProducts,setFilteredProducts};
 
 }
 

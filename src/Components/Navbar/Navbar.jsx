@@ -14,7 +14,7 @@ const Navbar = ()=>{
         <div className="navbar flex justify-between p-[18px] shadow-md items-center top-0 sticky z-10 bg-white">
             {/* left side */}
             <div className="brand-name-container">
-                <span className="brand-name">DevShop</span>
+                <Link to="/" className="brand-name">DevShop</Link>
             </div>
 
             {/* in middle */}
