@@ -10,6 +10,9 @@ export default function ApplyFilter({ handleFilterClick, filterOpen,priceFilter,
             checked ? [...prevFilter , name] : prevFilter.filter((prev)=>prev!==name)
         )
     }
+    const isChecked = (priceRange) => {
+        return priceFilter.includes(priceRange);
+    }
     return (
         <div className={`filter-container bottom-0 fixed z-20 bg-slate-600 ${filterOpen ? 'w-[100%] px-[18px] py-[10px]' : 'w[0px] px-[0px] py-[0px]'} transition-width duration-500 ease-linear`}>
             {
@@ -18,29 +21,29 @@ export default function ApplyFilter({ handleFilterClick, filterOpen,priceFilter,
                     <div>
                         <span className="mb-[10px] block">Filter By price</span>
                         <div className="flex  ">
-                            <input type="checkbox" name="100-250" onChange={handlePriceChange}/> <span className="ml-[10px] text-white">₹100 - ₹250</span>
+                            <input type="checkbox" name="100-250" checked={isChecked('100-250')} onChange={handlePriceChange}/> <span className="ml-[10px] text-white">₹100 - ₹250</span>
                         </div>
 
                         <div className="flex  ">
-                            <input type="checkbox" name="250-500" onChange={handlePriceChange}/> <span className="ml-[10px] text-white">₹250 - ₹500</span>
+                            <input type="checkbox" name="250-500" checked={isChecked('250-500')} onChange={handlePriceChange}/> <span className="ml-[10px] text-white">₹250 - ₹500</span>
                         </div>
 
                         <div className="flex  ">
-                            <input type="checkbox" name="500-750" onChange={handlePriceChange}/> <span className="ml-[10px] text-white">₹500 - ₹750</span>
+                            <input type="checkbox" name="500-750" checked={isChecked('500-750')} onChange={handlePriceChange}/> <span className="ml-[10px] text-white">₹500 - ₹750</span>
                         </div >
 
                         <div className="flex  ">
-                            <input type="checkbox" name="750-1000" onChange={handlePriceChange}/> <span className="ml-[10px] text-white">₹750 - ₹1000</span>
+                            <input type="checkbox" name="750-1000" checked={isChecked('750-1000')} onChange={handlePriceChange}/> <span className="ml-[10px] text-white">₹750 - ₹1000</span>
                         </div >
 
                         <div className="flex  ">
-                            <input type="checkbox" name="1000-1500" onChange={handlePriceChange}/> <span className="ml-[10px] text-white">₹1000 - ₹1500</span>
+                            <input type="checkbox" name="1000-1500" checked={isChecked('1000-1500')} onChange={handlePriceChange}/> <span className="ml-[10px] text-white">₹1000 - ₹1500</span>
                         </div>
                         <div className="flex  ">
-                            <input type="checkbox" name="1500-1750" onChange={handlePriceChange}/> <span className="ml-[10px] text-white">₹1500 - ₹1750</span>
+                            <input type="checkbox" name="1500-1750" checked={isChecked('1500-1750')} onChange={handlePriceChange}/> <span className="ml-[10px] text-white">₹1500 - ₹1750</span>
                         </div>
                         <div className="flex  ">
-                            <input type="checkbox" name="1750-9999" onChange={handlePriceChange}/> <span className="ml-[10px] text-white">₹1750 - Above</span>
+                            <input type="checkbox" name="1750-9999" checked={isChecked('1750-9999')} onChange={handlePriceChange}/> <span className="ml-[10px] text-white">₹1750 - Above</span>
                         </div>
                     </div>
 

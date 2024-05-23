@@ -7,6 +7,7 @@ import Login from './Components/Auth/Login';
 import Signup from './Components/Auth/Signup';
 import 'react-toastify/dist/ReactToastify.css';
 import { FilterContextProvider } from './utils/FilterContext';
+import Chatbot from './Components/Chatbot/Chatbot';
 
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
         </Routes>
+        <Chatbot/>
     </div>
   );
 }

@@ -19,10 +19,10 @@ const Navbar = ()=>{
 
             {/* in middle */}
             <div className="links-container hidden cursor-pointer sm:block">
-                <span className="links mx-[1vw]">Categories</span>
-                <span className="links mx-[1vw]">New Arrivals</span>
-                <span className="links mx-[1vw]">Features</span>
-                <span className="links mx-[1vw]">Collection</span>
+                <Link to="/allproducts"><span className="links mx-[1vw]">Categories</span></Link> 
+                <Link to="/allproducts"><span className="links mx-[1vw]">New Arrivals</span></Link>
+                <Link to="/allproducts"><span className="links mx-[1vw]">Features</span></Link>
+                <Link to="/allproducts"><span className="links mx-[1vw]">Collection</span></Link>
             </div>
 
             {/* in right */}
