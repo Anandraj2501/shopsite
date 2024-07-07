@@ -1,10 +1,11 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import useLogin from "../../utils/useLogin";
 import { ToastContainer, toast } from 'react-toastify';
+import {AuthContext} from "../../utils/AuthContext";
 
 const Login = ()=>{
-    const {login,isLoading,error} = useLogin();
+    const {login,isLoading,error,seterror} = useContext(AuthContext);
 
     const [formData,setFormData] = useState({
         email:"",
@@ -26,7 +27,11 @@ const Login = ()=>{
         }
     }
     useEffect(()=>{
-        toast(error);
+        if(error){
+            toast(error);
+            seterror();
+        }
+        
     },[error])
     
     return(

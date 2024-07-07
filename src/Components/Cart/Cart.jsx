@@ -1,19 +1,21 @@
 import Navbar from "../Navbar/Navbar";
 import p1 from "../../images/p1.jpg";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import useGetCart from "../../utils/useGetCart";
 import axios from "axios";
 import { BACKEND_URL } from "../../utils/BACKEND_URL";
 import useUpdateCart from "../../utils/useUpdateCart";
 import { ToastContainer, toast } from 'react-toastify';
 import useCheckout from "../../utils/useCheckout";
+import { AuthContext } from "../../utils/AuthContext";
 
 const Cart = () => {
+    const { user, islogin } = useContext(AuthContext);
     const [data, setData] = useState();
     const [error, setError] = useState();
     const [quantity, setQuantity] = useState(1);
     const { updateCart, isLoading, message } = useUpdateCart(setData);
-    const {handleCheckOut,loading} = useCheckout();
+    const { handleCheckOut, loading } = useCheckout();
     const handleQuantityChange = (id, newValue) => {
         if (newValue < 1) {
             alert("Please remove the item");
@@ -23,16 +25,40 @@ const Cart = () => {
     }
     const getCart = async () => {
         try {
-            const response = await axios.get(BACKEND_URL + "/getcart", { withCredentials: true });
+            console.log(user.token);
+            const response = await axios.get(BACKEND_URL + "/getcart", {
+                headers: {
+                    Authorization: `bearer ${user.token}`
+                }
+            });
             setData(response.data.cart);
             console.log(response);
         } catch (error) {
-            setError(error.response.data.error);
+            console.log(error);
+            setError(error.response?.data?.error);
+        }
+    }
+    const removeItem = async(id)=>{
+        try {
+            console.log(user.token);
+            console.log(id);
+            const response = await axios.delete(`${BACKEND_URL}/removeItem/${id}`,{
+                headers:{
+                    Authorization : `bearer ${user.token}`
+                }
+            })
+            setData(response.data.cart);
+            console.log(response);
+        } catch (error) {
+            console.log(error);
+            setError(error.response?.data?.error);
         }
     }
     useEffect(() => {
-        getCart();
-    }, [])
+        if (user?.token) {
+            getCart();
+        }
+    }, [user])
     useEffect(() => {
         toast(message);
     }, [message])
@@ -60,7 +86,7 @@ const Cart = () => {
                                                 {isLoading ? "updating" : <input type="number" value={item.quantity} onChange={(e) => handleQuantityChange(item.productId, parseInt(e.target.value))} className="ml-[10px] w-[35px] border border-slate-400 mb-[10px] p-[5px]" />}</td>
                                             <td className="w-[25px]  text-center">{item.price}</td>
                                             <td className="w-[25px] text-center">{item.total}</td>
-                                            <td className="w-[25px] text-center"><button className="bg-slate-500 px-[10px] py-[5px] rounded-md hover:text-white  w-[80px]">Remove</button></td>
+                                            <td className="w-[25px] text-center"><button className="bg-slate-500 px-[10px] py-[5px] rounded-md hover:text-white  w-[80px]" onClick={()=>removeItem(item.productId)}>Remove</button></td>
                                         </tr>
                                     ))
                                 }
@@ -75,7 +101,7 @@ const Cart = () => {
                             <div className="flex flex-col mt-[20px] sm:mt-[0px]">
                                 <span>Cart Total :</span>
                                 <span className=" text-xl font-bold">₹ {isLoading ? "Updating..." : data?.total}</span>
-                                <button className="bg-slate-500  px-[10px] py-[10px] hover:text-white" onClick={(e)=>handleCheckOut(e,data.total,data._id)}>{!loading?"Proceed to checkout":"Please wait..."}</button>
+                                <button className="bg-slate-500  px-[10px] py-[10px] hover:text-white" onClick={(e) => handleCheckOut(e, data.total, data._id)}>{!loading ? "Proceed to checkout" : "Please wait..."}</button>
                             </div>
                         </div>
                     </div>}

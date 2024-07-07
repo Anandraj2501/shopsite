@@ -1,8 +1,7 @@
 import Navbar from "../Navbar/Navbar";
 import { IoIosStar } from "react-icons/io";
 import { FaCartPlus } from "react-icons/fa6";
-import { useContext, useEffect, useState } from "react";
-import { FilterContext } from "../../utils/FilterContext";
+import {useEffect, useState } from "react";
 import useProducts from "../../utils/useproducts";
 import { LiaFilterSolid } from "react-icons/lia";
 import ApplyFilter from "./ApplyFilter";
